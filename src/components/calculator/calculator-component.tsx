@@ -3,6 +3,8 @@ import BackBlazeOffer from "../brands/backblaze";
 import VultrOffer from "../brands/vultr";
 import MemorySliders from "../sliders";
 import { debounce } from "@mui/material";
+import styles from "./calc-comopnent.module.css";
+import BunnyOffer from "../brands/bunny";
 
 interface slidersValues {
   storage: number;
@@ -20,9 +22,14 @@ export default function Calculator() {
 
   return (
     <>
-      <MemorySliders getValues={getSlidersValues} />
-      <BackBlazeOffer pickedValues={slidersValues} />
-      <VultrOffer pickedValues={slidersValues} />
+      <div className={styles.brandContainer}>
+        <BackBlazeOffer pickedValues={slidersValues} />
+        <BunnyOffer pickedValues={slidersValues} />
+        <VultrOffer pickedValues={slidersValues} />
+      </div>
+      <div>
+        <MemorySliders getValues={getSlidersValues} />
+      </div>
     </>
   );
 }

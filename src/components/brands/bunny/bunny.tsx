@@ -1,3 +1,4 @@
+import { Stack, Typography, Switch } from "@mui/material";
 import React from "react";
 
 export default function BunnyOffer({
@@ -16,12 +17,17 @@ export default function BunnyOffer({
     return endPrice;
   };
   return (
-    <>
+    <div>
+      <Stack direction="row" spacing={1} alignItems="center">
+        <Typography>HDD</Typography>
+        <Switch defaultChecked inputProps={{ "aria-label": "drive type" }} />
+        <Typography>SSD</Typography>
+      </Stack>
       Backblaze price for each Storage GB: {costPerStorage}$. price for each
       Transfer GB:
       {costPerTransfer}$ Total cost:
       {calculateCost()}$
-    </>
+    </div>
   );
 }
 

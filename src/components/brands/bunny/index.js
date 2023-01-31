@@ -1,1 +1,1 @@
-export { default } from "./bunny";
+export { default } from "./bunny.tsx";
