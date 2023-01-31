@@ -10,7 +10,9 @@ export default function BunnyOffer({
 
   const calculateCost = () => {
     const { storage, transfer } = pickedValues;
-    const endPrice = storage * costPerStorage + transfer * costPerTransfer;
+    const endPrice = parseFloat(
+      (storage * costPerStorage + transfer * costPerTransfer).toFixed(2)
+    );
     if (endPrice < minPayment) {
       return minPayment;
     }
