@@ -22,7 +22,6 @@ export default function BackBlazeOffer({
   }, [pickedValues]);
 
   useEffect(() => {
-    console.log("test envoke");
     getCost(calculateCost());
   }, [calculateCost, getCost]);
 
