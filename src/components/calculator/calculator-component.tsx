@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import MemorySliders from "../sliders";
 import { debounce } from "@mui/material";
 import styles from "./calc-comopnent.module.css";
@@ -18,7 +18,7 @@ interface ItotalCosts {
 
 export default function Calculator() {
   const [slidersValues, setSlidersValues] = useState<IslidersValues>();
-  const [totalCosts, setTotalCosts] = useState<ItotalCosts>();
+  const totalCosts = useRef<ItotalCosts>();
   const brands = useRef([{}]);
 
   useEffect(() => {
@@ -30,16 +30,25 @@ export default function Calculator() {
     setSlidersValues(values);
   }, 100);
 
-  const getTotalCosts = (price: ItotalCosts) => {
+  const getTotalCosts = useCallback((price: number) => {
     if (price) {
-      setTotalCosts(price);
+      totalCosts.current = { brand: price };
+    } else {
+      totalCosts.current = { brand: 0 };
     }
-  };
-  const devStr = `DEV ${totalCosts}`;
+  }, []);
+
+  let devStr = "";
+  if (totalCosts.current) {
+    devStr = `DEV ${totalCosts.current.brand}`;
+    console.log("totalCosts.current.brand", totalCosts.current.brand);
+  } else {
+    devStr = "no value";
+  }
+
   return (
     <>
       <div className={styles.brandContainer}>
-        {/* <BackBlazeOffer pickedValues={slidersValues} getCost={getTotalCosts} /> */}
         {brands.current.length > 0 ? (
           brands.current.map((brand, index) => {
             return (

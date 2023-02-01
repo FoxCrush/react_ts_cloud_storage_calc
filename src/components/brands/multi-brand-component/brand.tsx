@@ -15,6 +15,11 @@ export default function Brand({
   pickedAmount = { storage: 0, transfer: 0 },
 }: Iprops) {
   const [switchValue, setSwitchValue] = useState<boolean>(true);
+  const [currentPrices, setCurrentPrices] = useState({
+    storage: 0,
+    transfer: 0,
+  });
+
   const {
     brandName,
     pricePerStorage,
@@ -24,7 +29,7 @@ export default function Brand({
     minPayment,
     maxPayment,
     togglingOption,
-    freeSpace,
+    freeSpace = 0,
   } = brandInfo;
   const { storage, transfer } = pickedAmount;
   const setCurrentPrice = (
@@ -33,8 +38,16 @@ export default function Brand({
     altPricePerStorage,
     altPricePerTransfer
   ) => {
-    if (togglingOption) {
-      console.log("togglingOption", switchValue);
+    if (switchValue) {
+      setCurrentPrices({
+        storage: altPricePerStorage ? altPricePerStorage : pricePerStorage,
+        transfer: altPricePerTransfer ? altPricePerTransfer : pricePerTransfer,
+      });
+    } else {
+      setCurrentPrices({
+        storage: pricePerStorage,
+        transfer: pricePerTransfer,
+      });
     }
   };
   useEffect(() => {
@@ -49,16 +62,39 @@ export default function Brand({
   const switchChangedHandler = () => {
     setSwitchValue(!switchValue);
   };
+  const limitNumberWithinRange = (price, min, max) => {
+    const MIN = min || 0;
+    const MAX = max || 1000;
+    const num = price;
+    return Math.min(Math.max(num, MIN), MAX);
+  };
 
   const calculateCost = useCallback(() => {
-    const endPrice = parseFloat(
-      (storage * pricePerStorage + transfer * pricePerTransfer).toFixed(2)
-    );
-    if (endPrice < minPayment) {
-      return minPayment;
+    let storageAmount = storage;
+    let transferAmount = transfer;
+    if (freeSpace) {
+      storageAmount -= freeSpace;
+      transferAmount -= freeSpace;
     }
-    return endPrice;
-  }, [pickedAmount]);
+    console.log("storageAmount", brandName, storageAmount, transferAmount);
+    let endPrice = parseFloat(
+      (
+        storageAmount * currentPrices.storage +
+        transferAmount * currentPrices.transfer
+      ).toFixed(2)
+    );
+    // const priceLessZero = endPrice < 0 ? 0 : endPrice;
+    console.log("endPrice", endPrice);
+
+    return limitNumberWithinRange(endPrice, minPayment, maxPayment);
+  }, [
+    currentPrices.storage,
+    currentPrices.transfer,
+    maxPayment,
+    minPayment,
+    storage,
+    transfer,
+  ]);
 
   useEffect(() => {
     getCost(calculateCost());
