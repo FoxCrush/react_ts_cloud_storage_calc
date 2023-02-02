@@ -9,6 +9,7 @@ const backblaze: IBrand = {
 const bunny: IBrand = {
   brandName: "bunny.net",
   togglingOption: true,
+  switchOptions: ["HDD", "SSD"],
   maxPayment: 10,
   pricePerStorage: 0.01,
   altPricePerStorage: 0.02,
@@ -18,6 +19,7 @@ const bunny: IBrand = {
 const scaleway: IBrand = {
   brandName: "scaleway.com",
   togglingOption: true,
+  switchOptions: ["Single", "Multi"],
   pricePerStorage: 0.03,
   altPricePerStorage: 0.06,
   pricePerTransfer: 0.02,

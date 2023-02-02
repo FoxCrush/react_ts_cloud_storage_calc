@@ -29,6 +29,7 @@ export default function Brand({
     minPayment,
     maxPayment,
     togglingOption,
+    switchOptions = [],
     freeSpace = 0,
   } = brandInfo;
   const { sliderStorageValue: storage, sliderTransferValue: transfer } =
@@ -110,13 +111,17 @@ export default function Brand({
     <Fragment>
       {togglingOption && (
         <Stack direction="row" spacing={1} alignItems="center">
-          <Typography>HDD</Typography>
+          <Typography>
+            {switchOptions[0].length > 0 ? switchOptions[0] : ""}
+          </Typography>
           <Switch
             onChange={switchChangedHandler}
             defaultChecked
             inputProps={{ "aria-label": "drive type" }}
           />
-          <Typography>SSD</Typography>
+          <Typography>
+            {switchOptions[1].length > 0 ? switchOptions[1] : ""}
+          </Typography>
         </Stack>
       )}
       <div className={styles.container}>

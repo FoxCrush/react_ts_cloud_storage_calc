@@ -7,5 +7,6 @@ export interface IBrand {
   minPayment?: number;
   maxPayment?: number;
   togglingOption?: boolean;
+  switchOptions?: string[];
   freeSpace?: number;
 }
