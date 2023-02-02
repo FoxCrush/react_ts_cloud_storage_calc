@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import MemorySliders from "../sliders";
 import { debounce } from "@mui/material";
 import styles from "./calc-comopnent.module.css";
@@ -18,33 +18,27 @@ interface ItotalCosts {
 
 export default function Calculator() {
   const [slidersValues, setSlidersValues] = useState<IslidersValues>();
-  const totalCosts = useRef<ItotalCosts>();
+  const [bestDealBrand, setBestDealBrand] = useState<string>("");
   const brands = useRef([{}]);
+  const costsArray = useRef<{}[]>([]);
 
   useEffect(() => {
     brands.current = brandsData;
-    console.log("brands.current", brands.current);
   }, []);
 
   const getSlidersValues = debounce((values: IslidersValues) => {
     setSlidersValues(values);
   }, 100);
 
-  const getTotalCosts = useCallback((price: number) => {
-    if (price) {
-      totalCosts.current = { brand: price };
-    } else {
-      totalCosts.current = { brand: 0 };
-    }
-  }, []);
+  const getTotalCosts = (price: ItotalCosts) => {
+    costsArray.current.push(price);
+    setBestDealBrand("new brand");
+    // console.log("totalCosts.current.brand in fn", costsArray.current);
+  };
 
-  let devStr = "";
-  if (totalCosts.current) {
-    devStr = `DEV ${totalCosts.current.brand}`;
-    console.log("totalCosts.current.brand", totalCosts.current.brand);
-  } else {
-    devStr = "no value";
-  }
+  useEffect(() => {
+    // console.log("useEffect", bestDealBrand);
+  }, [bestDealBrand]);
 
   return (
     <>
@@ -67,7 +61,6 @@ export default function Calculator() {
       <div>
         <MemorySliders getValues={getSlidersValues} />
       </div>
-      <h3> {devStr} </h3>
     </>
   );
 }

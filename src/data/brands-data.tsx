@@ -24,8 +24,8 @@ const bunny: IBrand = {
 const scaleway: IBrand = {
   brandName: "scaleway.com",
   togglingOption: true,
-  pricePerStorage: 0.06,
-  altPricePerStorage: 0.03,
+  pricePerStorage: 0.03,
+  altPricePerStorage: 0.06,
   pricePerTransfer: 0.02,
   altPricePerTransfer: 0.02,
   freeSpace: 75,

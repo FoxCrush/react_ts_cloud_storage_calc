@@ -5,7 +5,7 @@ import { IBrand } from "../../../interfaces/calc-interfaces";
 
 interface Iprops {
   brandInfo: IBrand;
-  getCost: (any) => number;
+  getCost: (any) => { brand: number };
   pickedAmount: { storage: number; transfer: number };
 }
 
@@ -32,7 +32,7 @@ export default function Brand({
     freeSpace = 0,
   } = brandInfo;
   const { storage, transfer } = pickedAmount;
-  const setCurrentPrice = (
+  const findActualPrice = (
     pricePerStorage,
     pricePerTransfer,
     altPricePerStorage,
@@ -51,18 +51,22 @@ export default function Brand({
     }
   };
   useEffect(() => {
-    setCurrentPrice(
+    findActualPrice(
       pricePerStorage,
       pricePerTransfer,
       altPricePerStorage,
       altPricePerTransfer
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [switchValue]);
+  }, [switchValue, brandInfo]);
   const switchChangedHandler = () => {
     setSwitchValue(!switchValue);
   };
-  const limitNumberWithinRange = (price, min, max) => {
+  const limitNumberWithinRange = (
+    price: number,
+    min?: number,
+    max?: number
+  ) => {
     const MIN = min || 0;
     const MAX = max || 1000;
     const num = price;
@@ -76,20 +80,18 @@ export default function Brand({
       storageAmount -= freeSpace;
       transferAmount -= freeSpace;
     }
-    console.log("storageAmount", brandName, storageAmount, transferAmount);
     let endPrice = parseFloat(
       (
         storageAmount * currentPrices.storage +
         transferAmount * currentPrices.transfer
       ).toFixed(2)
     );
-    // const priceLessZero = endPrice < 0 ? 0 : endPrice;
-    console.log("endPrice", endPrice);
 
     return limitNumberWithinRange(endPrice, minPayment, maxPayment);
   }, [
     currentPrices.storage,
     currentPrices.transfer,
+    freeSpace,
     maxPayment,
     minPayment,
     storage,
@@ -97,8 +99,8 @@ export default function Brand({
   ]);
 
   useEffect(() => {
-    getCost(calculateCost());
-  }, [calculateCost, getCost]);
+    getCost({ [brandName]: calculateCost() });
+  }, [brandName, calculateCost, getCost]);
   return (
     <Fragment>
       {togglingOption && (
