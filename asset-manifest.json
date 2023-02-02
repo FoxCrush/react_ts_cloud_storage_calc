@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/react_ts_cloud_storage_calc/static/css/main.e6c13ad2.css",
-    "main.js": "/react_ts_cloud_storage_calc/static/js/main.9bffffe5.js",
+    "main.css": "/react_ts_cloud_storage_calc/static/css/main.3240adcf.css",
+    "main.js": "/react_ts_cloud_storage_calc/static/js/main.7bca8880.js",
     "index.html": "/react_ts_cloud_storage_calc/index.html",
-    "main.e6c13ad2.css.map": "/react_ts_cloud_storage_calc/static/css/main.e6c13ad2.css.map",
-    "main.9bffffe5.js.map": "/react_ts_cloud_storage_calc/static/js/main.9bffffe5.js.map"
+    "main.3240adcf.css.map": "/react_ts_cloud_storage_calc/static/css/main.3240adcf.css.map",
+    "main.7bca8880.js.map": "/react_ts_cloud_storage_calc/static/js/main.7bca8880.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.9bffffe5.js"
+    "static/css/main.3240adcf.css",
+    "static/js/main.7bca8880.js"
   ]
 }
