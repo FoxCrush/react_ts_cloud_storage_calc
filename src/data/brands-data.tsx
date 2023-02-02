@@ -6,12 +6,6 @@ const backblaze: IBrand = {
   pricePerStorage: 0.005,
   pricePerTransfer: 0.01,
 };
-const vultr: IBrand = {
-  brandName: "vultr.com",
-  minPayment: 5,
-  pricePerStorage: 0.01,
-  pricePerTransfer: 0.01,
-};
 const bunny: IBrand = {
   brandName: "bunny.net",
   togglingOption: true,
@@ -30,5 +24,12 @@ const scaleway: IBrand = {
   altPricePerTransfer: 0.02,
   freeSpace: 75,
 };
+const vultr: IBrand = {
+  brandName: "vultr.com",
+  minPayment: 5,
+  pricePerStorage: 0.01,
+  pricePerTransfer: 0.01,
+};
+
 const arrayToSend = [backblaze, vultr, bunny, scaleway];
 export default arrayToSend;

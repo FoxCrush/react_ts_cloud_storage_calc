@@ -103,7 +103,9 @@ export default function Brand({
   }, [currentPrices, storage, transfer]);
 
   useEffect(() => {
-    getCost(finalPrice);
+    if (brandName) {
+      getCost({ [brandName]: finalPrice });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finalPrice]);
 
