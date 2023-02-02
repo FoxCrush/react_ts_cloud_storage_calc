@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Stack, Typography, Switch } from "@mui/material";
 import styles from "./brand.module.css";
 import { IBrand } from "../../../interfaces/calc-interfaces";
@@ -81,7 +81,7 @@ export default function Brand({
     return Math.min(Math.max(num, MIN), MAX);
   };
 
-  const calculateCost = useCallback(() => {
+  const calculateCost = () => {
     let storageAmount = storage;
     let transferAmount = transfer;
     if (freeSpace) {
@@ -94,19 +94,19 @@ export default function Brand({
         transferAmount * currentPrices.transfer
       ).toFixed(2)
     );
-
     return limitNumberWithinRange(endPrice, minPayment, maxPayment);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPrices, storage, transfer]);
+  };
 
   useEffect(() => {
     setFinalPrice(calculateCost());
-  }, [calculateCost]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPrices, storage, transfer]);
 
   useEffect(() => {
     getCost(finalPrice);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finalPrice]);
+
   return (
     <Fragment>
       {togglingOption && (
