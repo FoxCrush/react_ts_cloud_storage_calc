@@ -14,6 +14,7 @@ export default function Brand({
   getCost,
   pickedAmount = { storage: 0, transfer: 0 },
 }: Iprops) {
+  const [finalPrice, setFinalPrice] = useState(0);
   const [switchValue, setSwitchValue] = useState<boolean>(true);
   const [currentPrices, setCurrentPrices] = useState({
     storage: 0,
@@ -34,10 +35,10 @@ export default function Brand({
   const { storage, transfer } = pickedAmount;
   useEffect(() => {
     const findActualPrice = (
-      pricePerStorage,
-      pricePerTransfer,
-      altPricePerStorage,
-      altPricePerTransfer
+      pricePerStorage = 0,
+      pricePerTransfer = 0,
+      altPricePerStorage = 0,
+      altPricePerTransfer = 0
     ) => {
       if (switchValue) {
         setCurrentPrices({
@@ -95,19 +96,17 @@ export default function Brand({
     );
 
     return limitNumberWithinRange(endPrice, minPayment, maxPayment);
-  }, [
-    currentPrices.storage,
-    currentPrices.transfer,
-    freeSpace,
-    maxPayment,
-    minPayment,
-    storage,
-    transfer,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPrices, storage, transfer]);
 
   useEffect(() => {
-    getCost({ [brandName]: calculateCost() });
-  }, [brandName, calculateCost, getCost]);
+    setFinalPrice(calculateCost());
+  }, [calculateCost]);
+
+  useEffect(() => {
+    getCost(finalPrice);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [finalPrice]);
   return (
     <Fragment>
       {togglingOption && (
@@ -125,7 +124,7 @@ export default function Brand({
         {brandName} price for each Storage GB: {pricePerStorage}$. price for
         each Transfer GB:
         {pricePerTransfer}$ Total cost:
-        {calculateCost()}$
+        {finalPrice}$
       </div>
     </Fragment>
   );

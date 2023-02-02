@@ -12,15 +12,12 @@ interface IslidersValues {
   storage: number;
   transfer: number;
 }
-interface ItotalCosts {
-  brand: number;
-}
 
 export default function Calculator() {
   const [slidersValues, setSlidersValues] = useState<IslidersValues>();
-  const [bestDealBrand, setBestDealBrand] = useState<string>("");
+  const [bestPrice, setBestPrice] = useState<number>(0);
   const brands = useRef([{}]);
-  const costsArray = useRef<{}[]>([]);
+  const costsArray = useRef([0]);
 
   useEffect(() => {
     brands.current = brandsData;
@@ -30,15 +27,16 @@ export default function Calculator() {
     setSlidersValues(values);
   }, 100);
 
-  const getTotalCosts = (price: ItotalCosts) => {
+  const getTotalCosts = (price: number) => {
     costsArray.current.push(price);
-    setBestDealBrand("new brand");
-    // console.log("totalCosts.current.brand in fn", costsArray.current);
+
+    setBestPrice(Math.min(...costsArray.current));
   };
 
   useEffect(() => {
-    // console.log("useEffect", bestDealBrand);
-  }, [bestDealBrand]);
+    costsArray.current = [];
+    console.log("Best Price", bestPrice);
+  }, [bestPrice]);
 
   return (
     <>
