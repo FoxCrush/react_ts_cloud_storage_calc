@@ -32,33 +32,40 @@ export default function Brand({
     freeSpace = 0,
   } = brandInfo;
   const { storage, transfer } = pickedAmount;
-  const findActualPrice = (
-    pricePerStorage,
-    pricePerTransfer,
-    altPricePerStorage,
-    altPricePerTransfer
-  ) => {
-    if (switchValue) {
-      setCurrentPrices({
-        storage: altPricePerStorage ? altPricePerStorage : pricePerStorage,
-        transfer: altPricePerTransfer ? altPricePerTransfer : pricePerTransfer,
-      });
-    } else {
-      setCurrentPrices({
-        storage: pricePerStorage,
-        transfer: pricePerTransfer,
-      });
-    }
-  };
   useEffect(() => {
+    const findActualPrice = (
+      pricePerStorage,
+      pricePerTransfer,
+      altPricePerStorage,
+      altPricePerTransfer
+    ) => {
+      if (switchValue) {
+        setCurrentPrices({
+          storage: altPricePerStorage ? altPricePerStorage : pricePerStorage,
+          transfer: altPricePerTransfer
+            ? altPricePerTransfer
+            : pricePerTransfer,
+        });
+      } else {
+        setCurrentPrices({
+          storage: pricePerStorage,
+          transfer: pricePerTransfer,
+        });
+      }
+    };
     findActualPrice(
       pricePerStorage,
       pricePerTransfer,
       altPricePerStorage,
       altPricePerTransfer
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [switchValue, brandInfo]);
+  }, [
+    altPricePerStorage,
+    altPricePerTransfer,
+    pricePerStorage,
+    pricePerTransfer,
+    switchValue,
+  ]);
   const switchChangedHandler = () => {
     setSwitchValue(!switchValue);
   };
