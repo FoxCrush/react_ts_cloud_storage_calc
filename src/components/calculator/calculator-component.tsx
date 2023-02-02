@@ -1,27 +1,26 @@
 import React, { useState, useRef, useEffect } from "react";
 import MemorySliders from "../sliders";
 import { debounce } from "@mui/material";
-import styles from "./calc-comopnent.module.css";
+import styles from "./calc-component.module.css";
 // @ts-ignore
 import brandsData from "../../data/brands-data.tsx";
 import Brand from "../brands/multi-brand-component";
 
-interface IslidersValues {
-  storage: number;
-  transfer: number;
+interface ISlidervalues {
+  sliderStorageValue: number;
+  sliderTransferValue: number;
+}
+interface IPrices {
+  [name: string]: number;
 }
 
 export default function Calculator() {
-  const [slidersValues, setSlidersValues] = useState<IslidersValues>();
+  const [slidersValues, setSlidersValues] = useState<ISlidervalues>();
   const [bestPrice, setBestPrice] = useState<number>(0);
-  const [allPrices, setAllPrices] = useState<{}>({});
+  const [allPrices, setAllPrices] = useState<IPrices>({ brand: 0 });
   const brands = useRef([{}]);
-  //fetch imitation
-  useEffect(() => {
-    brands.current = brandsData;
-  }, []);
 
-  const getSlidersValues = debounce((values: IslidersValues) => {
+  const getSlidersValues = debounce((values: ISlidervalues) => {
     setSlidersValues(values);
   }, 100);
   const getTotalCosts = (price) => {
@@ -31,9 +30,16 @@ export default function Calculator() {
   };
 
   useEffect(() => {
-    const minimalNumber = Math.min(...Object.values<number>(allPrices));
-    setBestPrice(minimalNumber);
+    console.log("allPrices", allPrices);
+    if (allPrices) {
+      const minimalNumber = Math.min(...Object.values<number>(allPrices));
+      setBestPrice(minimalNumber);
+    }
   }, [allPrices]);
+  //fetch imitation
+  useEffect(() => {
+    brands.current = brandsData;
+  }, []);
 
   return (
     <>

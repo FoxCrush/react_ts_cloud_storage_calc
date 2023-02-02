@@ -3,24 +3,23 @@ import { Stack, Typography, Switch } from "@mui/material";
 import styles from "./brand.module.css";
 import { IBrand } from "../../../interfaces/calc-interfaces";
 
-interface Iprops {
+interface IProps {
   brandInfo: IBrand;
   getCost: (any) => { brand: number };
-  pickedAmount: { storage: number; transfer: number };
+  pickedAmount: { sliderStorageValue: number; sliderTransferValue: number };
 }
 
 export default function Brand({
   brandInfo,
   getCost,
-  pickedAmount = { storage: 0, transfer: 0 },
-}: Iprops) {
+  pickedAmount = { sliderStorageValue: 0, sliderTransferValue: 0 },
+}: IProps) {
   const [finalPrice, setFinalPrice] = useState(0);
   const [switchValue, setSwitchValue] = useState<boolean>(true);
   const [currentPrices, setCurrentPrices] = useState({
     storage: 0,
     transfer: 0,
   });
-
   const {
     brandName,
     pricePerStorage,
@@ -32,7 +31,12 @@ export default function Brand({
     togglingOption,
     freeSpace = 0,
   } = brandInfo;
-  const { storage, transfer } = pickedAmount;
+  const { sliderStorageValue: storage, sliderTransferValue: transfer } =
+    pickedAmount;
+  const switchChangedHandler = () => {
+    setSwitchValue(!switchValue);
+  };
+
   useEffect(() => {
     const findActualPrice = (
       pricePerStorage = 0,
@@ -67,41 +71,34 @@ export default function Brand({
     pricePerTransfer,
     switchValue,
   ]);
-  const switchChangedHandler = () => {
-    setSwitchValue(!switchValue);
-  };
-  const limitNumberWithinRange = (
-    price: number,
-    min?: number,
-    max?: number
-  ) => {
-    const MIN = min || 0;
-    const MAX = max || 1000;
-    const num = price;
-    return Math.min(Math.max(num, MIN), MAX);
-  };
-
-  const calculateCost = () => {
-    let storageAmount = storage;
-    let transferAmount = transfer;
-    if (freeSpace) {
-      storageAmount -= freeSpace;
-      transferAmount -= freeSpace;
-    }
-    let endPrice = parseFloat(
-      (
-        storageAmount * currentPrices.storage +
-        transferAmount * currentPrices.transfer
-      ).toFixed(2)
-    );
-    return limitNumberWithinRange(endPrice, minPayment, maxPayment);
-  };
-
   useEffect(() => {
+    const limitNumberWithinRange = (
+      price: number,
+      min?: number,
+      max?: number
+    ) => {
+      const MIN = min || 0;
+      const MAX = max || 500;
+      return Math.min(Math.max(price, MIN), MAX);
+    };
+    const calculateCost = () => {
+      let storageAmount = storage;
+      let transferAmount = transfer;
+      if (freeSpace) {
+        storageAmount -= freeSpace;
+        transferAmount -= freeSpace;
+      }
+      let endPrice = parseFloat(
+        (
+          storageAmount * currentPrices.storage +
+          transferAmount * currentPrices.transfer
+        ).toFixed(2)
+      );
+      return limitNumberWithinRange(endPrice, minPayment, maxPayment);
+    };
     setFinalPrice(calculateCost());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPrices, storage, transfer]);
-
   useEffect(() => {
     if (brandName) {
       getCost({ [brandName]: finalPrice });

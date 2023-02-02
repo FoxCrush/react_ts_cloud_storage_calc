@@ -4,14 +4,14 @@ import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
 
 interface slidersValues {
-  storage: number;
-  transfer: number;
+  sliderStorageValue: number;
+  sliderTransferValue: number;
 }
 
 export default function MemorySliders({ getValues }) {
   const [values, setValues] = React.useState<slidersValues>({
-    storage: 10,
-    transfer: 10,
+    sliderStorageValue: 10,
+    sliderTransferValue: 10,
   });
 
   const handleChange = (event: Event, newValue: number | number[]) => {
@@ -22,24 +22,25 @@ export default function MemorySliders({ getValues }) {
       }));
     }
   };
-  React.useMemo(() => {
-    getValues(values);
-  }, [getValues, values]);
 
   function valueLabelFormat(value: number) {
     const unit = "GB";
     return `${value} ${unit}`;
   }
 
+  React.useMemo(() => {
+    getValues(values);
+  }, [getValues, values]);
+
   return (
     <>
       <Box sx={{ width: 250 }}>
         <Typography id="non-linear-slider" gutterBottom>
-          Storage: {valueLabelFormat(values.storage)}
+          Storage: {valueLabelFormat(values.sliderStorageValue)}
         </Typography>
         <Slider
-          name="storage"
-          value={values.storage}
+          name="sliderStorageValue"
+          value={values.sliderStorageValue}
           min={1}
           step={1}
           max={1000}
@@ -52,11 +53,11 @@ export default function MemorySliders({ getValues }) {
       </Box>
       <Box sx={{ width: 250 }}>
         <Typography id="non-linear-slider" gutterBottom>
-          Transfer: {valueLabelFormat(values.transfer)}
+          Transfer: {valueLabelFormat(values.sliderTransferValue)}
         </Typography>
         <Slider
-          name="transfer"
-          value={values.transfer}
+          name="sliderTransferValue"
+          value={values.sliderTransferValue}
           min={1}
           step={1}
           max={1000}
