@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from "react";
 
 export default function ColumnChart({
-  finalPrice = 0,
+  price = 0,
+  color = "",
+  bestPrice = 0,
 }: {
-  finalPrice: number;
+  price: number;
+  color: string;
+  bestPrice: number;
 }) {
-  console.log("finalPrice", finalPrice);
   const [columnLength, setColumnLength] = useState<string>("10");
+
   useEffect(() => {
-    setColumnLength(`${finalPrice}px`);
-  }, [finalPrice]);
-  useEffect(() => {
-    console.log("columnLength", columnLength);
-  }, [columnLength]);
+    setColumnLength(`${price * 4}px`);
+  }, [price]);
+  useEffect(() => {}, [columnLength]);
+
   return (
     <div
       style={{
+        backgroundColor: color,
+        display: "block",
         width: columnLength,
         height: columnLength,
-        backgroundColor: "silver",
       }}
     >
-      {finalPrice}
+      {price}
     </div>
   );
 }

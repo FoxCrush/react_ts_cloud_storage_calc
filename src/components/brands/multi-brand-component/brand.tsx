@@ -20,6 +20,7 @@ export default function Brand({
   });
   const {
     brandName,
+    brandColor,
     pricePerStorage,
     pricePerTransfer,
     altPricePerStorage,
@@ -125,8 +126,11 @@ export default function Brand({
       )}
       <div className={styles.container}>
         {brandName}
-        <ColumnChart price={finalPrice} />
-        {finalPrice}
+        <ColumnChart
+          price={finalPrice}
+          color={brandColor}
+          bestPrice={bestPrice}
+        />
       </div>
     </Fragment>
   );

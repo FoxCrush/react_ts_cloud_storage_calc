@@ -1,5 +1,6 @@
 export interface IBrand {
   brandName: string;
+  brandColor: string;
   pricePerStorage: number;
   pricePerTransfer: number;
   altPricePerStorage?: number;
