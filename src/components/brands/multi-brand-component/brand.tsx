@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Stack, Typography, Switch } from "@mui/material";
 // @ts-ignore
 import ColumnChart from "../../charts/column.tsx";
 // @ts-ignore
 import styles from "./brand.module.css";
 import { IProps } from "../../../interfaces/calc-interfaces";
+import OptionPicker from "../../switch";
 
 export default function Brand({
   bestPrice = 0,
@@ -110,25 +110,11 @@ export default function Brand({
   return (
     <>
       <div className={styles.container}>
-        <Stack
-          //@ts-ignore
-          visibility={togglingOption ? "" : "hidden"}
-          direction="row"
-          spacing={1}
-          alignItems="center"
-        >
-          <Typography>
-            {switchOptions.length > 0 ? switchOptions[0] : ""}
-          </Typography>
-          <Switch
-            onChange={switchChangedHandler}
-            defaultChecked
-            inputProps={{ "aria-label": "drive type" }}
-          />
-          <Typography>
-            {switchOptions.length > 0 ? switchOptions[1] : ""}
-          </Typography>
-        </Stack>
+        <OptionPicker
+          togglingOption={togglingOption}
+          switchOptions={switchOptions}
+          switchChangedHandler={switchChangedHandler}
+        />
         {brandName}
         <div
           style={{

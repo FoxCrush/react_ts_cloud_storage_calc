@@ -1,8 +1,9 @@
 .container {
+  margin: 0 8px;
   display: flex;
   flex-direction: column-reverse;
   flex-wrap: nowrap;
-  justify-content: center;
+  justify-content: space-around;
   align-content: stretch;
   align-items: center;
 }
