@@ -1,13 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Stack, Typography, Switch } from "@mui/material";
 import styles from "./brand.module.css";
-import { IBrand } from "../../../interfaces/calc-interfaces";
-
-interface IProps {
-  brandInfo: IBrand;
-  getCost: (any) => { brand: number };
-  pickedAmount: { sliderStorageValue: number; sliderTransferValue: number };
-}
+import { IProps } from "../../../interfaces/calc-interfaces";
 
 export default function Brand({
   brandInfo,

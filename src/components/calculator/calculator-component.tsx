@@ -1,23 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
+import styles from "./calc-component.module.css";
 import MemorySliders from "../sliders";
 import { debounce } from "@mui/material";
-import styles from "./calc-component.module.css";
 // @ts-ignore
 import brandsData from "../../data/brands-data.tsx";
+// @ts-ignore
+import ColumnChart from "../charts/column.tsx";
 import Brand from "../brands/multi-brand-component";
-
-interface ISlidervalues {
-  sliderStorageValue: number;
-  sliderTransferValue: number;
-}
-interface IPrices {
-  [name: string]: number;
-}
+import { ISlidervalues, IPrices } from "../../interfaces/calc-interfaces";
 
 export default function Calculator() {
   const [slidersValues, setSlidersValues] = useState<ISlidervalues>();
   const [bestPrice, setBestPrice] = useState<number>(0);
-  const [allPrices, setAllPrices] = useState<IPrices>({ brand: 0 });
+  const [allPrices, setAllPrices] = useState<IPrices>();
   const brands = useRef([{}]);
 
   const getSlidersValues = debounce((values: ISlidervalues) => {
@@ -30,7 +25,6 @@ export default function Calculator() {
   };
 
   useEffect(() => {
-    console.log("allPrices", allPrices);
     if (allPrices) {
       const minimalNumber = Math.min(...Object.values<number>(allPrices));
       setBestPrice(minimalNumber);
@@ -43,6 +37,8 @@ export default function Calculator() {
 
   return (
     <>
+      <ColumnChart data={{ allPrices, bestPrice }} />
+
       <div className={styles.brandContainer}>
         {brands.current.length > 0 ? (
           brands.current.map((brand, index) => {
@@ -62,7 +58,6 @@ export default function Calculator() {
       <div>
         <MemorySliders getValues={getSlidersValues} />
       </div>
-      <h3>{bestPrice}</h3>
     </>
   );
 }
