@@ -1,40 +1,27 @@
-import React from "react";
-import { Chart } from "react-google-charts";
-import { IPrices } from "../../interfaces/calc-interfaces";
+import React, { useEffect, useState } from "react";
 
-export default function ColumnChart({ data: brandsData }) {
-  const { allPrices, bestPrice }: { allPrices: IPrices[]; bestPrice: number } =
-    brandsData;
-  console.log("brands", allPrices, bestPrice);
-
-  const data = [
-    ["", "", { role: "style" }],
-    ["Copper", 8.94, "silver"],
-    ["Silver", 10.49, "silver"],
-    ["Gold", 19.3, "silver"],
-  ];
-
-  const options = {
-    legend: { position: "none" },
-    vAxis: {
-      gridlines: {
-        interval: 0,
-      },
-    },
-    hAxis: {
-      gridlines: {
-        interval: 0,
-      },
-    },
-  };
-
+export default function ColumnChart({
+  finalPrice = 0,
+}: {
+  finalPrice: number;
+}) {
+  console.log("finalPrice", finalPrice);
+  const [columnLength, setColumnLength] = useState<string>("10");
+  useEffect(() => {
+    setColumnLength(`${finalPrice}px`);
+  }, [finalPrice]);
+  useEffect(() => {
+    console.log("columnLength", columnLength);
+  }, [columnLength]);
   return (
-    <Chart
-      chartType="BarChart"
-      width="100%"
-      height="400px"
-      data={data}
-      options={options}
-    />
+    <div
+      style={{
+        width: columnLength,
+        height: columnLength,
+        backgroundColor: "silver",
+      }}
+    >
+      {finalPrice}
+    </div>
   );
 }

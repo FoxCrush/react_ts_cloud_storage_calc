@@ -1,9 +1,13 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Stack, Typography, Switch } from "@mui/material";
+// @ts-ignore
+import ColumnChart from "../../charts/column.tsx";
+// @ts-ignore
 import styles from "./brand.module.css";
 import { IProps } from "../../../interfaces/calc-interfaces";
 
 export default function Brand({
+  bestPrice = 0,
   brandInfo,
   getCost,
   pickedAmount = { sliderStorageValue: 0, sliderTransferValue: 0 },
@@ -28,6 +32,7 @@ export default function Brand({
   } = brandInfo;
   const { sliderStorageValue: storage, sliderTransferValue: transfer } =
     pickedAmount;
+
   const switchChangedHandler = () => {
     setSwitchValue(!switchValue);
   };
@@ -119,10 +124,9 @@ export default function Brand({
         </Stack>
       )}
       <div className={styles.container}>
-        {brandName} price for each Storage GB: {pricePerStorage}$. price for
-        each Transfer GB:
-        {pricePerTransfer}$ Total cost:
-        {finalPrice}$
+        {brandName}
+        <ColumnChart price={finalPrice} />
+        {finalPrice}
       </div>
     </Fragment>
   );

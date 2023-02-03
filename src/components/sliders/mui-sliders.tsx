@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
@@ -9,7 +9,7 @@ interface slidersValues {
 }
 
 export default function MemorySliders({ getValues }) {
-  const [values, setValues] = React.useState<slidersValues>({
+  const [values, setValues] = useState<slidersValues>({
     sliderStorageValue: 10,
     sliderTransferValue: 10,
   });
@@ -28,9 +28,10 @@ export default function MemorySliders({ getValues }) {
     return `${value} ${unit}`;
   }
 
-  React.useMemo(() => {
+  useEffect(() => {
     getValues(values);
-  }, [getValues, values]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values]);
 
   return (
     <>

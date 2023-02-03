@@ -10,7 +10,7 @@ export interface IBrand {
   switchOptions?: string[];
   freeSpace?: number;
 }
-export interface ISlidervalues {
+export interface ISliderValues {
   sliderStorageValue: number;
   sliderTransferValue: number;
 }
@@ -18,6 +18,7 @@ export interface IPrices {
   [name: string]: number;
 }
 export interface IProps {
+  bestPrice: number;
   brandInfo: IBrand;
   getCost: (any) => { brand: number };
   pickedAmount: { sliderStorageValue: number; sliderTransferValue: number };
