@@ -10,16 +10,17 @@ export default function ColumnChart({
   bestPrice: number;
 }) {
   const [columnLength, setColumnLength] = useState<string>("10");
+  const [currentColor, setCurrentColor] = useState<string>('silver')
 
   useEffect(() => {
+    setCurrentColor(color);
     setColumnLength(`${price * 4}px`);
   }, [price]);
-  useEffect(() => {}, [columnLength]);
 
   return (
     <div
       style={{
-        backgroundColor: color,
+        backgroundColor: currentColor,
         width: "24px",
         height: columnLength,
       }}

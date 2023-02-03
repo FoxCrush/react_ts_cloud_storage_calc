@@ -1,14 +1,14 @@
 import { IBrand } from "../interfaces/calc-interfaces";
 
 const backblaze: IBrand = {
-  brandName: "backblaze.com",
+  brandName: "backblaze",
   brandColor: "red",
   minPayment: 7,
   pricePerStorage: 0.005,
   pricePerTransfer: 0.01,
 };
 const bunny: IBrand = {
-  brandName: "bunny.net",
+  brandName: "bunny",
   brandColor: "orange",
   togglingOption: true,
   switchOptions: ["HDD", "SSD"],
@@ -19,7 +19,7 @@ const bunny: IBrand = {
   altPricePerTransfer: 0.01,
 };
 const scaleway: IBrand = {
-  brandName: "scaleway.com",
+  brandName: "scaleway",
   brandColor: "purple",
   togglingOption: true,
   switchOptions: ["Single", "Multi"],
@@ -30,7 +30,7 @@ const scaleway: IBrand = {
   freeSpace: 75,
 };
 const vultr: IBrand = {
-  brandName: "vultr.com",
+  brandName: "vultr",
   brandColor: "blue",
   minPayment: 5,
   pricePerStorage: 0.01,

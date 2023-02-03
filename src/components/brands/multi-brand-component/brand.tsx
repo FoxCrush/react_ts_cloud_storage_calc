@@ -4,7 +4,8 @@ import ColumnChart from "../../charts/column.tsx";
 // @ts-ignore
 import styles from "./brand.module.css";
 import { IProps } from "../../../interfaces/calc-interfaces";
-import OptionPicker from "../../switch";
+import OptionPicker from "../../switch"; //@ts-ignore
+import cloudIcon from "../../../media/cloud-storage-free-svg.svg";
 
 export default function Brand({
   bestPrice = 0,
@@ -116,21 +117,20 @@ export default function Brand({
           switchChangedHandler={switchChangedHandler}
         />
         {brandName}
-        <div
+        <img
+          alt="cloud"
+          src={cloudIcon}
           style={{
-            outline: "1px solid grey",
             height: "24px",
             display: "block",
           }}
-        >
-          ICON
-        </div>
+        />
         <ColumnChart
           price={finalPrice}
-          color={brandColor}
+          color={brandColor ? brandColor : 'silver'}
           bestPrice={bestPrice}
         />
-        {finalPrice}
+        <span style={{ textAlign:'center'}}>{finalPrice}</span>
       </div>
     </>
   );
