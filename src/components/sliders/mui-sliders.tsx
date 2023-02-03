@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
+//@ts-ignore
+import styles from "./slider.module.css";
 
 interface slidersValues {
   sliderStorageValue: number;
@@ -17,7 +19,7 @@ export default function MemorySliders({ getValues }) {
   const handleChange = (event: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
       setValues((prevState) => ({
-        ...prevState,
+        ...prevState, //@ts-ignore
         [event.target!.name]: newValue,
       }));
     }
@@ -34,7 +36,7 @@ export default function MemorySliders({ getValues }) {
   }, [values]);
 
   return (
-    <>
+    <div className={styles.container}>
       <Box sx={{ width: 250 }}>
         <Typography id="non-linear-slider" gutterBottom>
           Storage: {valueLabelFormat(values.sliderStorageValue)}
@@ -69,6 +71,6 @@ export default function MemorySliders({ getValues }) {
           aria-labelledby="non-linear-slider"
         />
       </Box>
-    </>
+    </div>
   );
 }

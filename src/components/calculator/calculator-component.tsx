@@ -35,22 +35,23 @@ export default function Calculator() {
   }, []);
 
   return (
-    <>
-      {brands.current.map((brand, index) => {
-        return (
-          <Brand
-            key={index}
-            brandInfo={brand}
-            getCost={getTotalCosts}
-            pickedAmount={slidersValues}
-            bestPrice={bestPrice}
-          />
-        );
-      })}
-      <div className={styles.brandContainer}></div>
+    <div className={styles.container}>
+      <div className={styles.brandContainer}>
+        {brands.current.map((brand, index) => {
+          return (
+            <Brand
+              key={index}
+              brandInfo={brand}
+              getCost={getTotalCosts}
+              pickedAmount={slidersValues}
+              bestPrice={bestPrice}
+            />
+          );
+        })}
+      </div>
       <div>
         <MemorySliders getValues={getSlidersValues} />
       </div>
-    </>
+    </div>
   );
 }

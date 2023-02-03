@@ -20,12 +20,9 @@ export default function ColumnChart({
     <div
       style={{
         backgroundColor: color,
-        display: "block",
-        width: columnLength,
+        width: "24px",
         height: columnLength,
       }}
-    >
-      {price}
-    </div>
+    ></div>
   );
 }

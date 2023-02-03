@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Stack, Typography, Switch } from "@mui/material";
 // @ts-ignore
 import ColumnChart from "../../charts/column.tsx";
@@ -108,11 +108,17 @@ export default function Brand({
   }, [finalPrice]);
 
   return (
-    <Fragment>
-      {togglingOption && (
-        <Stack direction="row" spacing={1} alignItems="center">
+    <>
+      <div className={styles.container}>
+        <Stack
+          //@ts-ignore
+          visibility={togglingOption ? "" : "hidden"}
+          direction="row"
+          spacing={1}
+          alignItems="center"
+        >
           <Typography>
-            {switchOptions[0].length > 0 ? switchOptions[0] : ""}
+            {switchOptions.length > 0 ? switchOptions[0] : ""}
           </Typography>
           <Switch
             onChange={switchChangedHandler}
@@ -120,18 +126,26 @@ export default function Brand({
             inputProps={{ "aria-label": "drive type" }}
           />
           <Typography>
-            {switchOptions[1].length > 0 ? switchOptions[1] : ""}
+            {switchOptions.length > 0 ? switchOptions[1] : ""}
           </Typography>
         </Stack>
-      )}
-      <div className={styles.container}>
         {brandName}
+        <div
+          style={{
+            outline: "1px solid grey",
+            height: "24px",
+            display: "block",
+          }}
+        >
+          ICON
+        </div>
         <ColumnChart
           price={finalPrice}
           color={brandColor}
           bestPrice={bestPrice}
         />
+        {finalPrice}
       </div>
-    </Fragment>
+    </>
   );
 }
