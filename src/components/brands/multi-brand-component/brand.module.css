@@ -32,3 +32,8 @@
   flex: 0 1 auto;
   align-self: auto;
 }
+@media (min-width: 667px) {
+  .container {
+    flex-direction: row;
+  }
+}

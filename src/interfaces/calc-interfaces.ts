@@ -24,3 +24,7 @@ export interface IProps {
   getCost: (any) => { brand: number };
   pickedAmount: { sliderStorageValue: number; sliderTransferValue: number };
 }
+export interface ISize {
+  width: number | undefined;
+  height: number | undefined;
+}

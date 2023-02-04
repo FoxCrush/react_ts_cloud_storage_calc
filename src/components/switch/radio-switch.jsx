@@ -16,6 +16,8 @@ export default function OptionPicker({
   return (
     <Box
       sx={{
+        justifyContent: 'center',
+        minWidth:'85px',
         display: "flex",
         alignItems: "center",
         gap: 2,
@@ -29,6 +31,7 @@ export default function OptionPicker({
         value={option}
         onChange={(event) => setOption(event.target.value)}
         sx={{
+          alignItems: "center",
           minHeight: 48,
           padding: "4px",
           borderRadius: "md",
