@@ -24,6 +24,7 @@ export default function ColumnChart({
   return (
     <div
       style={{
+        borderRadius:'5px',
         backgroundColor: currentColor,
         width: "24px",
         height: columnLength,

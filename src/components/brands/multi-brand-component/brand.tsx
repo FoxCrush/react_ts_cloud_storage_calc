@@ -107,7 +107,6 @@ export default function Brand({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finalPrice]);
-  console.log('finalPrice === bestPrice ', brandName, finalPrice === bestPrice )
 
   return (
     <>
@@ -130,7 +129,7 @@ export default function Brand({
           price={finalPrice}
           color={finalPrice === bestPrice ? brandColor : 'silver'}
         />
-        <span style={{ textAlign:'center'}}>{finalPrice}</span>
+        <span style={{ textAlign:'center'}}>{finalPrice}$</span>
       </div>
     </>
   );
