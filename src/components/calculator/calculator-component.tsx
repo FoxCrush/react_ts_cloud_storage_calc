@@ -49,9 +49,7 @@ export default function Calculator() {
           );
         })}
       </div>
-      <div>
         <MemorySliders getValues={getSlidersValues} />
-      </div>
     </div>
   );
 }

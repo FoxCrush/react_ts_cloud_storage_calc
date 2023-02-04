@@ -8,11 +8,11 @@ export default function OptionPicker({
   switchOptions,
   switchChangedHandler,
 }) {
-  const [justify, setJustify] = React.useState(switchOptions[0]);
+  const [option, setOption] = React.useState(switchOptions[0]);
   React.useEffect(() => {
-    switchChangedHandler(justify);
+    switchChangedHandler(option);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [justify]);
+  }, [option]);
   return (
     <Box
       sx={{
@@ -26,8 +26,8 @@ export default function OptionPicker({
         orientation="vertical"
         aria-labelledby="segmented-controls-example"
         name="justify"
-        value={justify}
-        onChange={(event) => setJustify(event.target.value)}
+        value={option}
+        onChange={(event) => setOption(event.target.value)}
         sx={{
           minHeight: 48,
           padding: "4px",

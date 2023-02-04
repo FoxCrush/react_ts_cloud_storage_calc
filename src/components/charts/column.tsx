@@ -11,7 +11,7 @@ export default function ColumnChart({
   const [columnLength, setColumnLength] = useState<string>("10");
   const [currentColor, setCurrentColor] = useState<string>('');
 
-  const debouncedColorSwitch = debounce(()=>{setCurrentColor(color)},100)
+  const debouncedColorSwitch = debounce(()=>{setCurrentColor(color)},50)
 
   useEffect(() => {
     setColumnLength(`${price * 4}px`);
