@@ -13,9 +13,11 @@ export default function ColumnChart({
   const [currentColor, setCurrentColor] = useState<string>('silver')
 
   useEffect(() => {
-    setCurrentColor(color);
     setColumnLength(`${price * 4}px`);
   }, [price]);
+  useEffect(()=>{
+    setCurrentColor(color);
+  },[color])
 
   return (
     <div
