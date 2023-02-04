@@ -116,7 +116,7 @@ export default function Brand({
           switchOptions={switchOptions}
           switchChangedHandler={switchChangedHandler}
         />
-        {brandName}
+        <span className={styles.brandLabel}>{brandName}</span>
         <img
           alt="cloud"
           src={cloudIcon}
