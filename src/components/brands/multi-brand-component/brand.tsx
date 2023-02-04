@@ -129,7 +129,6 @@ export default function Brand({
         <ColumnChart
           price={finalPrice}
           color={finalPrice === bestPrice ? brandColor : 'silver'}
-          bestPrice={bestPrice}
         />
         <span style={{ textAlign:'center'}}>{finalPrice}</span>
       </div>
