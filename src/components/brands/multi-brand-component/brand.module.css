@@ -8,12 +8,24 @@
   align-content: stretch;
   align-items: center;
 }
+.container > * {
+  margin-right: 0px;
+  margin-top: 4px;
+}
+.brandLabel{
+  text-align: center;
+}
 
 @media (min-width: 667px) {
   .container {
     flex-direction: row;
   }
+  .container > * {
+    margin-top: 0px;
+    margin-right: 4px;
+  }
   .brandLabel{
-    min-width: 80px;
+    min-width: 165px;
+
   }
 }

@@ -15,7 +15,7 @@ export default function OptionPicker({
     justifyContent: 'center',
     minWidth:viewSize.width > 677 ? '160px' : '85px',
     minHeight:'48px',
-    display: "flex",
+    display: viewSize.width > 677 && !togglingOption ? 'none' : 'flex',
     alignItems: "center",
     gap: 2,
   }
@@ -38,7 +38,7 @@ export default function OptionPicker({
           alignItems: "center",
           padding: "4px",
           borderRadius: "md",
-          bgcolor: "silver",
+          bgcolor: "gainsboro",
           "--RadioGroup-gap": "4px",
           "--Radio-action-radius": "8px",
         }}

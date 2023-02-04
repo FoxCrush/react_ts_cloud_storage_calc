@@ -111,12 +111,22 @@ export default function Brand({
   return (
     <>
       <div className={styles.container}>
-        <OptionPicker
-          togglingOption={togglingOption}
-          switchOptions={switchOptions}
-          switchChangedHandler={switchChangedHandler}
-        />
-        <span className={styles.brandLabel}>{brandName}</span>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <h4 className={styles.brandLabel}>{brandName}</h4>
+          <OptionPicker
+            togglingOption={togglingOption}
+            switchOptions={switchOptions}
+            switchChangedHandler={switchChangedHandler}
+          />
+        </div>
         <img
           alt="cloud"
           src={cloudIcon}
@@ -127,9 +137,9 @@ export default function Brand({
         />
         <ColumnChart
           price={finalPrice}
-          color={finalPrice === bestPrice ? brandColor : 'silver'}
+          color={finalPrice === bestPrice ? brandColor : "silver"}
         />
-        <span style={{ textAlign:'center'}}>{finalPrice}$</span>
+        <h4 style={{ textAlign: "center" }}>{finalPrice}$</h4>
       </div>
     </>
   );

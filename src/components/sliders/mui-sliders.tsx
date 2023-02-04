@@ -38,7 +38,7 @@ export default function MemorySliders({ getValues }) {
   return (
     <div className={styles.container}>
       <Box sx={{ width: 250 }}>
-        <Typography id="non-linear-slider" gutterBottom>
+        <Typography variant="h5" id="non-linear-slider" gutterBottom>
           Storage: {valueLabelFormat(values.sliderStorageValue)}
         </Typography>
         <Slider
@@ -55,7 +55,7 @@ export default function MemorySliders({ getValues }) {
         />
       </Box>
       <Box sx={{ width: 250 }}>
-        <Typography id="non-linear-slider" gutterBottom>
+        <Typography  variant="h5" id="non-linear-slider" gutterBottom>
           Transfer: {valueLabelFormat(values.sliderTransferValue)}
         </Typography>
         <Slider
