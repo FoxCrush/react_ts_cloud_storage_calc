@@ -15,7 +15,6 @@ export default function Brand({
 }: IProps) {
   const [finalPrice, setFinalPrice] = useState<number>(0);
   const [switchValue, setSwitchValue] = useState<boolean>(true);
-  // const [currentColor, setCurrentColor] = useState<string>();
   const [currentPrices, setCurrentPrices] = useState({
     storage: 0,
     transfer: 0,
@@ -108,12 +107,6 @@ export default function Brand({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finalPrice]);
-  // useEffect(()=>{
-  //   if (finalPrice === bestPrice) {
-  //   setCurrentColor(brandColor)
-  // } else {
-  //   setCurrentColor('silver')
-  // }},[bestPrice])
 
   return (
     <>

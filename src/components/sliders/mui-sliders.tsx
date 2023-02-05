@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
 //@ts-ignore
 import styles from "./slider.module.css";
+import debounce from 'lodash.debounce';
 
 interface slidersValues {
   sliderStorageValue: number;
@@ -31,7 +32,9 @@ export default function MemorySliders({ getValues }) {
   }
 
   useEffect(() => {
-    getValues(values);
+  const debouncedGetValues = debounce(getValues,50)
+
+    debouncedGetValues(values);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values]);
 

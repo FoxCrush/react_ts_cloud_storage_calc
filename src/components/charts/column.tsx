@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import debounce from 'lodash.debounce'; //@ts-ignore
+import React, { useEffect, useRef, useState } from "react";
+//@ts-ignore
 import { useWindowSize } from "../../utility/dimensionsHook.tsx";//@ts-ignore
 import {ISize} from '../../interfaces/calc-interfaces.ts'
 export default function ColumnChart({
@@ -11,8 +11,10 @@ export default function ColumnChart({
   color: string;
   bestPrice: number;
 }) {
+  const defaultColor = useRef('silver');
   const [columnLength, setColumnLength] = useState<string>("10");
-  const [currentColor, setCurrentColor] = useState<string>('');
+  const [currentColor, setCurrentColor] = useState<string>(defaultColor.current);
+  const isBestPrice = useRef(false)
   const viewSize: ISize = useWindowSize();
   const style = {
     borderRadius:'5px',
@@ -21,23 +23,27 @@ export default function ColumnChart({
     height: viewSize.width < 677 ? columnLength : '24px',
   }
 
-  // const debouncedColorSwitch = debounce(()=>{setCurrentColor(color)},10);
-
   useEffect(() => {
     setColumnLength(`${price * 4}px`);
   }, [price]);
   useEffect(()=>{
-    if (bestPrice === price || currentColor !== color) {
-      console.log('changed', bestPrice === price && currentColor !== color)
-    setCurrentColor(color)
-
-      // debouncedColorSwitch()
+    if (price === bestPrice) {
+      isBestPrice.current = true;
     } else {
-      setCurrentColor('silver')
+      isBestPrice.current = false;
     }
-     //@ts-ignore
-    // return ()=>debouncedColorSwitch.cancel()
-  },[bestPrice])
+  },[bestPrice, price])
+  useEffect(()=>{
+  console.log("bestPrice,price", bestPrice,price,color,isBestPrice.current)
+  if (isBestPrice.current && currentColor === color) {
+    setCurrentColor(color)
+  }
+  else if (isBestPrice.current && currentColor !== color) {
+    setCurrentColor(color)
+  } else {
+    setCurrentColor(defaultColor.current)
+  }
+  },[bestPrice, color, currentColor, price])
 
   return (
     <div

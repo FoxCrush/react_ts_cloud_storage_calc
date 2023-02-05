@@ -21,7 +21,7 @@ export default function Calculator() {
     if (price) {
       setAllPrices((prevPrices) => ({ ...prevPrices, ...price }));
     }
-  };
+  }
 
   useEffect(() => {
     if (allPrices) {
