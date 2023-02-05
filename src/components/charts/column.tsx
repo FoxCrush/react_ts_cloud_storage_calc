@@ -5,6 +5,7 @@ import {ISize} from '../../interfaces/calc-interfaces.ts'
 export default function ColumnChart({
   price = 0,
   color = "",
+  bestPrice = 0
 }: {
   price: number;
   color: string;
@@ -20,15 +21,23 @@ export default function ColumnChart({
     height: viewSize.width < 677 ? columnLength : '24px',
   }
 
-  const debouncedColorSwitch = debounce(()=>{setCurrentColor(color)},50);
+  // const debouncedColorSwitch = debounce(()=>{setCurrentColor(color)},10);
 
   useEffect(() => {
     setColumnLength(`${price * 4}px`);
   }, [price]);
   useEffect(()=>{
-    debouncedColorSwitch() //@ts-ignore
-    return ()=>debouncedColorSwitch.cancel()
-  },[debouncedColorSwitch])
+    if (bestPrice === price || currentColor !== color) {
+      console.log('changed', bestPrice === price && currentColor !== color)
+    setCurrentColor(color)
+
+      // debouncedColorSwitch()
+    } else {
+      setCurrentColor('silver')
+    }
+     //@ts-ignore
+    // return ()=>debouncedColorSwitch.cancel()
+  },[bestPrice])
 
   return (
     <div

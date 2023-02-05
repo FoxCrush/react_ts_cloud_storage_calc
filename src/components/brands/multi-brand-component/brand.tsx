@@ -13,8 +13,9 @@ export default function Brand({
   getCost,
   pickedAmount = { sliderStorageValue: 0, sliderTransferValue: 0 },
 }: IProps) {
-  const [finalPrice, setFinalPrice] = useState(0);
+  const [finalPrice, setFinalPrice] = useState<number>(0);
   const [switchValue, setSwitchValue] = useState<boolean>(true);
+  // const [currentColor, setCurrentColor] = useState<string>();
   const [currentPrices, setCurrentPrices] = useState({
     storage: 0,
     transfer: 0,
@@ -87,8 +88,8 @@ export default function Brand({
       let storageAmount = storage;
       let transferAmount = transfer;
       if (freeSpace) {
-        storageAmount -= freeSpace;
-        transferAmount -= freeSpace;
+        storageAmount = storageAmount - freeSpace < 0 ? 0 : storageAmount - freeSpace;
+        transferAmount = transferAmount - freeSpace < 0 ? 0 : transferAmount - freeSpace;
       }
       let endPrice = parseFloat(
         (
@@ -107,6 +108,12 @@ export default function Brand({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finalPrice]);
+  // useEffect(()=>{
+  //   if (finalPrice === bestPrice) {
+  //   setCurrentColor(brandColor)
+  // } else {
+  //   setCurrentColor('silver')
+  // }},[bestPrice])
 
   return (
     <>
@@ -137,7 +144,8 @@ export default function Brand({
         />
         <ColumnChart
           price={finalPrice}
-          color={finalPrice === bestPrice ? brandColor : "silver"}
+          color={brandColor}
+          bestPrice={bestPrice}
         />
         <h4 style={{ textAlign: "center" }}>{finalPrice}$</h4>
       </div>

@@ -26,9 +26,11 @@ export default function Calculator() {
   useEffect(() => {
     if (allPrices) {
       const minimalNumber = Math.min(...Object.values<number>(allPrices));
-      setBestPrice(minimalNumber);
+      if (bestPrice !== minimalNumber) {
+        setBestPrice(minimalNumber);
+      }
     }
-  }, [allPrices]);
+  }, [allPrices, bestPrice]);
   //fetch imitation
   useEffect(() => {
     brands.current = brandsArray;
