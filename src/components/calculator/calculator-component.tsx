@@ -35,6 +35,7 @@ export default function Calculator() {
   }, []);
 
   return (
+    <div style={{ width:'100vw', height:'100vh'}}>
     <div className={styles.container}>
       <div className={styles.brandContainer}>
         {brands.current.map((brand, index) => {
@@ -50,6 +51,7 @@ export default function Calculator() {
         })}
       </div>
         <MemorySliders getValues={getSlidersValues} />
+    </div>
     </div>
   );
 }

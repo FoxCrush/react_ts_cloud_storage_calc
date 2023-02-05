@@ -44,7 +44,7 @@ export default function MemorySliders({ getValues }) {
         <Slider
           name="sliderStorageValue"
           value={values.sliderStorageValue}
-          min={1}
+          min={0}
           step={1}
           max={1000}
           getAriaValueText={valueLabelFormat}
@@ -61,7 +61,7 @@ export default function MemorySliders({ getValues }) {
         <Slider
           name="sliderTransferValue"
           value={values.sliderTransferValue}
-          min={1}
+          min={0}
           step={1}
           max={1000}
           getAriaValueText={valueLabelFormat}

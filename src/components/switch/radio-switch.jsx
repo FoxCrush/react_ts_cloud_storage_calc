@@ -14,7 +14,7 @@ export default function OptionPicker({
   const style = {
     justifyContent: 'center',
     minWidth:viewSize.width > 677 ? '160px' : '85px',
-    minHeight:'48px',
+    minHeight:'52px',
     display: viewSize.width > 677 && !togglingOption ? 'none' : 'flex',
     alignItems: "center",
     gap: 2,

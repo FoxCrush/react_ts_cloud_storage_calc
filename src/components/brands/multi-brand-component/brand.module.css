@@ -1,6 +1,6 @@
 .container {
   min-width:52px;
-  margin: 0 8px;
+  margin: 0 4px;
   display: flex;
   flex-direction: column-reverse;
   flex-wrap: nowrap;
@@ -10,7 +10,7 @@
 }
 .container > * {
   margin-right: 0px;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 .brandLabel{
   text-align: center;
@@ -19,6 +19,7 @@
 @media (min-width: 667px) {
   .container {
     flex-direction: row;
+    min-height: 70px;
   }
   .container > * {
     margin-top: 0px;
