@@ -5,16 +5,17 @@ import brandsArray from "../../data/brands-data.tsx";
 // @ts-ignore
 import styles from "./calc-component.module.css";
 import MemorySliders from "../sliders";
-import { ISliderValues, IPrices } from "../../interfaces/calc-interfaces";
-import throttle from "lodash.throttle";
+import {
+  ISliderValues,
+  IPrices,
+  IBrand,
+} from "../../interfaces/calc-interfaces";
 
 export default function Calculator() {
   const [slidersValues, setSlidersValues] = useState<ISliderValues>();
   const [allPrices, setAllPrices] = useState<IPrices>({});
+  const [allCalculatedBrands, setAllCalculatedBrands] = useState<IBrand[]>([]);
   const bestPrice = useRef(0);
-  const throttledBestPrice = useRef(
-    throttle((prices) => throttledCalcBestPrice(prices), 30)
-  );
   const brandsToShow = useRef(brandsArray);
 
   const getSlidersValues = (values: ISliderValues) => {
@@ -25,20 +26,18 @@ export default function Calculator() {
       setAllPrices((prevPrices) => ({ ...prevPrices, ...brandWithFinalPrice }));
     }
   };
-  const throttledCalcBestPrice = (prices) => {
-    if (prices) {
-      const minimalNumber = Math.min(...Object.values<number>(prices));
-      bestPrice.current = minimalNumber;
-    }
-  };
   useEffect(() => {
-    throttledBestPrice.current(allPrices);
-    if (brandsToShow.current && allPrices) {
-      for (let brand of brandsToShow.current) {
-        brand.hasBestPrice =
-          allPrices[brand.brandName] <= bestPrice.current ? true : false;
+    if (allPrices) {
+      const minimalNumber = Math.min(...Object.values<number>(allPrices));
+      bestPrice.current = minimalNumber;
+      if (brandsToShow.current && allPrices) {
+        for (let brand of brandsToShow.current) {
+          brand.hasBestPrice =
+            allPrices[brand.brandName] <= minimalNumber ? true : false;
+        }
       }
     }
+    setAllCalculatedBrands([...brandsToShow.current]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allPrices]);
 
@@ -46,7 +45,7 @@ export default function Calculator() {
     <div style={{ width: "100vw", height: "100vh" }}>
       <div className={styles.container}>
         <div className={styles.brandContainer}>
-          {brandsToShow.current.map((brand, index) => {
+          {allCalculatedBrands.map((brand, index) => {
             return (
               <Brand
                 key={index}

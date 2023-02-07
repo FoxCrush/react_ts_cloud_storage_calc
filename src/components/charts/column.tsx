@@ -20,7 +20,6 @@ export default function ColumnChart({
     width: viewSize.width > 677 ? columnLength : "24px",
     height: viewSize.width < 677 ? columnLength : "24px",
   };
-
   useEffect(() => {
     setColumnLength(`${price * 4}px`);
   }, [price]);
