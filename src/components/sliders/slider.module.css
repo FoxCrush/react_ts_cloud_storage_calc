@@ -19,10 +19,11 @@
   flex: 0 1 auto;
   align-self: auto;
 }
-@media (min-width:667px) {
-  .container{
+@media (min-width: 667px) {
+  .container {
+    margin-top: 0px;
     width: 90%;
-    margin-top:4px;
+    margin-top: 4px;
     flex-direction: row;
     justify-content: space-between;
   }
