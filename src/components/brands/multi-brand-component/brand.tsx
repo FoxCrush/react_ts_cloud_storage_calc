@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // @ts-ignore
 import ColumnChart from "../../charts/column.tsx";
 // @ts-ignore
@@ -6,9 +6,9 @@ import styles from "./brand.module.css";
 import { IProps } from "../../../interfaces/calc-interfaces";
 import OptionPicker from "../../switch"; //@ts-ignore
 import cloudIcon from "../../../media/cloud-storage-free-svg.svg";
+import throttle from "lodash.throttle";
 
 export default function Brand({
-  bestPrice = 0,
   brandInfo,
   getCost,
   pickedAmount = { sliderStorageValue: 0, sliderTransferValue: 0 },
@@ -31,7 +31,14 @@ export default function Brand({
     togglingOption,
     switchOptions = [],
     freeSpace = 0,
+    hasBestPrice = false,
   } = brandInfo;
+
+  const throttledFinalPrice = useRef(
+    throttle((finalPrice) => {
+      setFinalPrice(finalPrice);
+    }, 10)
+  );
   const { sliderStorageValue: storage, sliderTransferValue: transfer } =
     pickedAmount;
 
@@ -87,8 +94,10 @@ export default function Brand({
       let storageAmount = storage;
       let transferAmount = transfer;
       if (freeSpace) {
-        storageAmount = storageAmount - freeSpace < 0 ? 0 : storageAmount - freeSpace;
-        transferAmount = transferAmount - freeSpace < 0 ? 0 : transferAmount - freeSpace;
+        storageAmount =
+          storageAmount - freeSpace < 0 ? 0 : storageAmount - freeSpace;
+        transferAmount =
+          transferAmount - freeSpace < 0 ? 0 : transferAmount - freeSpace;
       }
       let endPrice = parseFloat(
         (
@@ -98,7 +107,7 @@ export default function Brand({
       );
       return limitNumberWithinRange(endPrice, minPayment, maxPayment);
     };
-    setFinalPrice(calculateCost());
+    throttledFinalPrice.current(calculateCost());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPrices, storage, transfer]);
   useEffect(() => {
@@ -138,7 +147,7 @@ export default function Brand({
         <ColumnChart
           price={finalPrice}
           color={brandColor}
-          bestPrice={bestPrice}
+          isBestPrice={hasBestPrice}
         />
         <h4 style={{ textAlign: "center" }}>{finalPrice}$</h4>
       </div>

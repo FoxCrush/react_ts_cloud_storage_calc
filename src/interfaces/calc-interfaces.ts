@@ -3,6 +3,7 @@ export interface IBrand {
   brandColor: string;
   pricePerStorage: number;
   pricePerTransfer: number;
+  hasBestPrice?: boolean;
   altPricePerStorage?: number;
   altPricePerTransfer?: number;
   minPayment?: number;

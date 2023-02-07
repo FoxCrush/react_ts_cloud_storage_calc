@@ -4,56 +4,61 @@ import Brand from "../brands/multi-brand-component";
 import brandsArray from "../../data/brands-data.tsx";
 // @ts-ignore
 import styles from "./calc-component.module.css";
-import { IPrices } from "../../interfaces/calc-interfaces";
 import MemorySliders from "../sliders";
-import { ISliderValues } from "../../interfaces/calc-interfaces";
+import { ISliderValues, IPrices } from "../../interfaces/calc-interfaces";
+import throttle from "lodash.throttle";
 
 export default function Calculator() {
   const [slidersValues, setSlidersValues] = useState<ISliderValues>();
-  const [bestPrice, setBestPrice] = useState<number>(0);
-  const [allPrices, setAllPrices] = useState<IPrices>();
-  const brands = useRef([{}]);
+  const [allPrices, setAllPrices] = useState<IPrices>({});
+  const bestPrice = useRef(0);
+  const throttledBestPrice = useRef(
+    throttle((prices) => throttledCalcBestPrice(prices), 30)
+  );
+  const brandsToShow = useRef(brandsArray);
 
   const getSlidersValues = (values: ISliderValues) => {
     setSlidersValues(values);
   };
-  const getTotalCosts = (price) => {
-    if (price) {
-      setAllPrices((prevPrices) => ({ ...prevPrices, ...price }));
+  const getTotalCosts = (brandWithFinalPrice) => {
+    if (brandWithFinalPrice) {
+      setAllPrices((prevPrices) => ({ ...prevPrices, ...brandWithFinalPrice }));
     }
-  }
-
+  };
+  const throttledCalcBestPrice = (prices) => {
+    if (prices) {
+      const minimalNumber = Math.min(...Object.values<number>(prices));
+      bestPrice.current = minimalNumber;
+    }
+  };
   useEffect(() => {
-    if (allPrices) {
-      const minimalNumber = Math.min(...Object.values<number>(allPrices));
-      if (bestPrice !== minimalNumber) {
-        setBestPrice(minimalNumber);
+    throttledBestPrice.current(allPrices);
+    if (brandsToShow.current && allPrices) {
+      for (let brand of brandsToShow.current) {
+        brand.hasBestPrice =
+          allPrices[brand.brandName] <= bestPrice.current ? true : false;
       }
     }
-  }, [allPrices, bestPrice]);
-  //fetch imitation
-  useEffect(() => {
-    brands.current = brandsArray;
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allPrices]);
 
   return (
-    <div style={{ width:'100vw', height:'100vh'}}>
-    <div className={styles.container}>
-      <div className={styles.brandContainer}>
-        {brands.current.map((brand, index) => {
-          return (
-            <Brand
-              key={index}
-              brandInfo={brand}
-              getCost={getTotalCosts}
-              pickedAmount={slidersValues}
-              bestPrice={bestPrice}
-            />
-          );
-        })}
-      </div>
+    <div style={{ width: "100vw", height: "100vh" }}>
+      <div className={styles.container}>
+        <div className={styles.brandContainer}>
+          {brandsToShow.current.map((brand, index) => {
+            return (
+              <Brand
+                key={index}
+                brandInfo={brand}
+                getCost={getTotalCosts}
+                pickedAmount={slidersValues}
+              />
+            );
+          })}
+        </div>
         <MemorySliders getValues={getSlidersValues} />
-    </div>
+      </div>
     </div>
   );
 }

@@ -4,7 +4,6 @@ import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
 //@ts-ignore
 import styles from "./slider.module.css";
-import debounce from 'lodash.debounce';
 
 interface slidersValues {
   sliderStorageValue: number;
@@ -13,8 +12,8 @@ interface slidersValues {
 
 export default function MemorySliders({ getValues }) {
   const [values, setValues] = useState<slidersValues>({
-    sliderStorageValue: 10,
-    sliderTransferValue: 10,
+    sliderStorageValue: 0,
+    sliderTransferValue: 0,
   });
 
   const handleChange = (event: Event, newValue: number | number[]) => {
@@ -32,9 +31,7 @@ export default function MemorySliders({ getValues }) {
   }
 
   useEffect(() => {
-  const debouncedGetValues = debounce(getValues,50)
-
-    debouncedGetValues(values);
+    getValues(values);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values]);
 
@@ -58,7 +55,7 @@ export default function MemorySliders({ getValues }) {
         />
       </Box>
       <Box sx={{ width: 250 }}>
-        <Typography  variant="h5" id="non-linear-slider" gutterBottom>
+        <Typography variant="h5" id="non-linear-slider" gutterBottom>
           Transfer: {valueLabelFormat(values.sliderTransferValue)}
         </Typography>
         <Slider
