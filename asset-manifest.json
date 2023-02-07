@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/react_ts_cloud_storage_calc/static/css/main.fca24c57.css",
-    "main.js": "/react_ts_cloud_storage_calc/static/js/main.10345018.js",
+    "main.css": "/react_ts_cloud_storage_calc/static/css/main.7c237ee3.css",
+    "main.js": "/react_ts_cloud_storage_calc/static/js/main.323f5701.js",
     "static/media/cloud-storage-free-svg.svg": "/react_ts_cloud_storage_calc/static/media/cloud-storage-free-svg.116af19c807614af5b691ac1feb5af10.svg",
     "index.html": "/react_ts_cloud_storage_calc/index.html",
-    "main.fca24c57.css.map": "/react_ts_cloud_storage_calc/static/css/main.fca24c57.css.map",
-    "main.10345018.js.map": "/react_ts_cloud_storage_calc/static/js/main.10345018.js.map"
+    "main.7c237ee3.css.map": "/react_ts_cloud_storage_calc/static/css/main.7c237ee3.css.map",
+    "main.323f5701.js.map": "/react_ts_cloud_storage_calc/static/js/main.323f5701.js.map"
   },
   "entrypoints": [
-    "static/css/main.fca24c57.css",
-    "static/js/main.10345018.js"
+    "static/css/main.7c237ee3.css",
+    "static/js/main.323f5701.js"
   ]
 }
