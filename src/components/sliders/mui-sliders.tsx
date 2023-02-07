@@ -45,7 +45,6 @@ export default function MemorySliders({ getValues }) {
         </Typography>
         <Slider
           name="sliderStorageValue"
-          value={values.sliderStorageValue}
           min={0}
           step={1}
           max={1000}
@@ -62,7 +61,6 @@ export default function MemorySliders({ getValues }) {
         </Typography>
         <Slider
           name="sliderTransferValue"
-          value={values.sliderTransferValue}
           min={0}
           step={1}
           max={1000}
