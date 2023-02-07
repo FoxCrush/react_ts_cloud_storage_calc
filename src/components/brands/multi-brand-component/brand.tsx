@@ -37,7 +37,7 @@ export default function Brand({
   const throttledFinalPrice = useRef(
     throttle((finalPrice) => {
       setFinalPrice(finalPrice);
-    }, 50)
+    }, 30)
   );
   const { sliderStorageValue: storage, sliderTransferValue: transfer } =
     pickedAmount;

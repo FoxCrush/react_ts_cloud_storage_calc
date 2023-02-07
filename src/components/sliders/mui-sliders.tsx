@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
 //@ts-ignore
 import styles from "./slider.module.css";
+import throttle from "lodash.throttle";
 
 interface slidersValues {
   sliderStorageValue: number;
@@ -24,11 +25,12 @@ export default function MemorySliders({ getValues }) {
       }));
     }
   };
+  const debouncedChangeHandler = useMemo(() => throttle(handleChange, 50), []);
 
-  function valueLabelFormat(value: number) {
+  const valueLabelFormat = (value: number) => {
     const unit = "GB";
     return `${value} ${unit}`;
-  }
+  };
 
   useEffect(() => {
     getValues(values);
@@ -49,7 +51,7 @@ export default function MemorySliders({ getValues }) {
           max={1000}
           getAriaValueText={valueLabelFormat}
           valueLabelFormat={valueLabelFormat}
-          onChange={handleChange}
+          onChange={debouncedChangeHandler}
           valueLabelDisplay="auto"
           aria-labelledby="non-linear-slider"
         />
@@ -66,7 +68,7 @@ export default function MemorySliders({ getValues }) {
           max={1000}
           getAriaValueText={valueLabelFormat}
           valueLabelFormat={valueLabelFormat}
-          onChange={handleChange}
+          onChange={debouncedChangeHandler}
           valueLabelDisplay="auto"
           aria-labelledby="non-linear-slider"
         />
