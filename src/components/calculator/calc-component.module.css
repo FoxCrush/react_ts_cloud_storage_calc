@@ -6,8 +6,8 @@
 }
 .container {
   margin: auto;
-  width: 380px;
-  height: 650px;
+  width: 90vw;
+  height: 80vh;
   padding: 4px 4px;
   display: flex;
   flex-direction: column;
@@ -24,8 +24,8 @@
     align-items: flex-start;
   }
   .brandContainer {
-    width: 90%;
-    height: 75%;
+    width: 80vh;
+    height: 90vh;
     flex-direction: column;
     align-items: flex-start;
   }
